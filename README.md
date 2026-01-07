@@ -2,12 +2,12 @@
 
 ## Overview
 
-This repository contains **centralized external configuration** for the Bankwave microservices ecosystem.  
+This repository contains **centralized external configuration** for the Bankwave microservices ecosystem.
 It is consumed by **Spring Cloud Config Server** to provide environment-specific configuration to multiple services, including:
 
-- **Accounts**
-- **Cards**
-- **Loans**
+* **Accounts**
+* **Cards**
+* **Loans**
 
 The main goal is to **decouple configuration from application code**, enabling safer deployments, easier environment management, and consistent configuration across all services.
 
@@ -31,15 +31,18 @@ The main goal is to **decouple configuration from application code**, enabling s
 │ Accounts / Cards    │
 │ Loans               │
 └─────────────────────┘
+```
+
 Each microservice retrieves its configuration from the Config Server at startup based on:
 
-Application name
+* **Application name**
+* **Active profile** (e.g. `qa`, `prod`)
 
-Active profile (e.g. qa, prod)
+---
 
-📂 Repository Structure
-text
-Copy code
+## 📂 Repository Structure
+
+```text
 config-repo/
 ├── accounts.yml
 ├── accounts-qa.yml
@@ -53,39 +56,48 @@ config-repo/
 ├── loans-qa.yml
 ├── loans-prod.yml
 └── README.md
-📝 Naming Convention
+```
+
+---
+
+## 📝 Naming Convention
+
 Configuration files follow this pattern:
 
-php-template
-Copy code
+```
 <application-name>-<profile>.yml
-Examples
-accounts-prod.yml
+```
 
-cards-qa.yml
+### Examples
 
-loans.yml (default profile)
+* `accounts-prod.yml`
+* `cards-qa.yml`
+* `loans.yml` (default profile)
 
-🌍 Environment Profiles
+---
+
+## 🌍 Environment Profiles
+
 Each service supports multiple environments:
 
-default – local or fallback configuration
-
-qa – quality assurance/testing
-
-prod – production configuration
+* **default** – local or fallback configuration
+* **qa** – quality assurance/testing
+* **prod** – production configuration
 
 Profiles are activated using Spring Boot’s profile activation mechanism:
 
-yaml
-Copy code
+```yaml
 spring:
   config:
     activate:
       on-profile: prod
-⚙️ Example Configuration
-yaml
-Copy code
+```
+
+---
+
+## ⚙️ Example Configuration
+
+```yaml
 accounts:
   message: "Welcome to Bankwave Accounts PROD APIs"
   contact-details:
@@ -94,41 +106,51 @@ accounts:
   on-call-support:
     - "(011) 123-4567"
     - "(011) 987-6543"
-🔐 Security Considerations
-❌ Do NOT commit secrets (passwords, tokens, API keys) to this repository
+```
 
-Sensitive data should be managed using:
+---
 
-Environment variables
+## 🔐 Security Considerations
 
-Secret management tools (e.g. HashiCorp Vault, AWS Secrets Manager)
+* ❌ **Do NOT commit secrets** (passwords, tokens, API keys) to this repository
+* Sensitive data should be managed using:
 
-This repository is intended for non-sensitive configuration only.
+  * Environment variables
+  * Secret management tools (e.g. HashiCorp Vault, AWS Secrets Manager)
 
-🔄 Configuration Refresh
+This repository is intended for **non-sensitive configuration only**.
+
+---
+
+## 🔄 Configuration Refresh
+
 Configuration changes can be applied to services:
 
-On application restart, or
+* On **application restart**, or
+* Dynamically using **Spring Cloud Bus** and `/actuator/busrefresh` (if enabled)
 
-Dynamically using Spring Cloud Bus and /actuator/busrefresh (if enabled)
+---
 
-🚀 Benefits of This Approach
-Centralized configuration management
+## 🚀 Benefits of This Approach
 
-Environment-specific behavior without code changes
+* Centralized configuration management
+* Environment-specific behavior without code changes
+* Safer and more controlled production deployments
+* Improved scalability across microservices
+* Follows industry-standard Spring Cloud practices
 
-Safer and more controlled production deployments
+---
 
-Improved scalability across microservices
+## 🧑‍💻 Maintainer
 
-Follows industry-standard Spring Cloud practices
-
-🧑‍💻 Maintainer
-Themba Ngobeni
+**Themba Ngobeni**
 Software Engineer – Java & Microservices
 
-📧 Email: thembatman0@gmail.com
+* 📧 Email: [thembatman0@gmail.com](mailto:thembatman0@gmail.com)
+* 🔗 GitHub: [https://github.com/thembatman0](https://github.com/thembatman0)
 
-🔗 GitHub: https://github.com/thembatman0
+---
 
-📌 Notes
+## 📌 Notes
+
+This repository is designed to evolve alongside the Bankwave microservices platform and follows best practices for cloud-native and distributed systems.
