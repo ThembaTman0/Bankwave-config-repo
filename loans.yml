@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to Bankwave loans related local APIs "
+  contactDetails:
+    name: "Themba Tman - Developer"
+    email: "thembatman0@gmail.com"
+  onCallSupport:
+    - "(011) 123-4567"
+    - "(011) 987-6543"
