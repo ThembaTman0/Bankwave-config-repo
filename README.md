@@ -154,3 +154,5 @@ Software Engineer – Java & Microservices
 ## 📌 Notes
 
 This repository is designed to evolve alongside the Bankwave microservices platform and follows best practices for cloud-native and distributed systems.
+
+~In real world this repo should be private :) ~
