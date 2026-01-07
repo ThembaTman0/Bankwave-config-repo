@@ -1,37 +1,134 @@
-# Bankwave Configuration Repository
+# 📦 Bankwave Config Repository
 
-Bankwave Microservices Configuration Repository - Environment-specific properties for Spring Cloud Config Server
+## Overview
 
-## Services
-- **Accounts** - Account management service
-- **Cards** - Card management service
-- **Loans** - Loan management service
+This repository contains **centralized external configuration** for the Bankwave microservices ecosystem.  
+It is consumed by **Spring Cloud Config Server** to provide environment-specific configuration to multiple services, including:
 
-## Environments
-- `prod` - Production configuration
-- `qa` - QA/Testing configuration
+- **Accounts**
+- **Cards**
+- **Loans**
 
-## Usage
-Configure Config Server to point to this repository:
-```yaml
-spring:
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/yourusername/bankwave-config-repo
-```
+The main goal is to **decouple configuration from application code**, enabling safer deployments, easier environment management, and consistent configuration across all services.
 
-## File Structure
-```
+---
+
+## 🧱 Architecture
+
+```text
+┌─────────────────────┐
+│ Config Repository   │
+│ (this repo)         │
+└─────────▲───────────┘
+          │
+┌─────────┴───────────┐
+│ Config Server       │
+│ (Spring Cloud)      │
+└─────────▲───────────┘
+          │
+┌─────────┴───────────┐
+│ Microservices       │
+│ Accounts / Cards    │
+│ Loans               │
+└─────────────────────┘
+Each microservice retrieves its configuration from the Config Server at startup based on:
+
+Application name
+
+Active profile (e.g. qa, prod)
+
+📂 Repository Structure
+text
+Copy code
+config-repo/
 ├── accounts.yml
-├── accounts-prod.yml
 ├── accounts-qa.yml
+├── accounts-prod.yml
+│
 ├── cards.yml
-├── cards-prod.yml
 ├── cards-qa.yml
+├── cards-prod.yml
+│
 ├── loans.yml
-├── loans-prod.yml
 ├── loans-qa.yml
-└── application.yml
-```
+├── loans-prod.yml
+└── README.md
+📝 Naming Convention
+Configuration files follow this pattern:
+
+php-template
+Copy code
+<application-name>-<profile>.yml
+Examples
+accounts-prod.yml
+
+cards-qa.yml
+
+loans.yml (default profile)
+
+🌍 Environment Profiles
+Each service supports multiple environments:
+
+default – local or fallback configuration
+
+qa – quality assurance/testing
+
+prod – production configuration
+
+Profiles are activated using Spring Boot’s profile activation mechanism:
+
+yaml
+Copy code
+spring:
+  config:
+    activate:
+      on-profile: prod
+⚙️ Example Configuration
+yaml
+Copy code
+accounts:
+  message: "Welcome to Bankwave Accounts PROD APIs"
+  contact-details:
+    name: "Themba Ngobeni"
+    email: "support@bankwave.com"
+  on-call-support:
+    - "(011) 123-4567"
+    - "(011) 987-6543"
+🔐 Security Considerations
+❌ Do NOT commit secrets (passwords, tokens, API keys) to this repository
+
+Sensitive data should be managed using:
+
+Environment variables
+
+Secret management tools (e.g. HashiCorp Vault, AWS Secrets Manager)
+
+This repository is intended for non-sensitive configuration only.
+
+🔄 Configuration Refresh
+Configuration changes can be applied to services:
+
+On application restart, or
+
+Dynamically using Spring Cloud Bus and /actuator/busrefresh (if enabled)
+
+🚀 Benefits of This Approach
+Centralized configuration management
+
+Environment-specific behavior without code changes
+
+Safer and more controlled production deployments
+
+Improved scalability across microservices
+
+Follows industry-standard Spring Cloud practices
+
+🧑‍💻 Maintainer
+Themba Ngobeni
+Software Engineer – Java & Microservices
+
+📧 Email: thembatman0@gmail.com
+
+🔗 GitHub: https://github.com/thembatman0
+
+📌 Notes
