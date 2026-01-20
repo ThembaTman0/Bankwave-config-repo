@@ -2,12 +2,13 @@ build:
   version: "1.0-prod"
 
 cards:
-  message: "Welcome to Bankwave cards related PRODUCTION APIs "
+  message: "Welcome to Bankwave cards related webhook APIs "
   contactDetails:
     name: "Themba Tman - Developer"
     email: "{cipher}4197a6588c59205cf96b72caa56a6fb5ef0baf4da3b1757e5147d96a70a2bee669c6bcc68c8d3c405246d57ea2312d21"
   onCallSupport:
     - "(011) 123-4567"
     - "(011) 987-6543"
+
 
 
